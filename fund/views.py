@@ -36,7 +36,7 @@ class FundHistoryView(LoginRequiredMixin, ListView):
 		
 
 		paginator 		= Paginator(fund_history, self.paginate_by) # show 1 contacts per page
-		page 			= request.GET.get('page', '1')
+		page 			= request.GET.get('page')
 
 		print('total fund used = ',obj['used'])
 		try:
@@ -48,4 +48,4 @@ class FundHistoryView(LoginRequiredMixin, ListView):
 			# If page is out of rage (e.g. 99999), deliver last page of results
 			funds = paginator.page(paginator.num_pages)
 		
-		return render(request, self.template_name, {'obj_list': fund_history, 'total': total, 'used': obj, 'balance': balance})
+		return render(request, self.template_name, {'obj_list': funds, 'total': total, 'used': obj, 'balance': balance})
