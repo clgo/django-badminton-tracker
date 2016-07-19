@@ -21,12 +21,19 @@ class FundHistoryView(LoginRequiredMixin, ListView):
 		total		 	= self.model.objects.all().aggregate(total=Sum('contrib_amount'))
 		obj 		 	= Booking.objects.filter(valid=True).aggregate(used=Sum(F('rate') * F('hour')))
 		# total['total'] and obj['used'] could be none if the database is empty
-		try:
-			balance			= total['total'] - obj['used']
-		except:
-			print("Total['total'] or obj['used'] is not a valid number.", total['total'], obj['used'])
 
-		print("Total['total'] or obj['used'] is not a valid number.", total['total'], obj['used'])
+		if total['total'] is None:
+			total['total'] = 0
+
+		if obj['used'] is None:
+			obj['used'] = 0
+		
+		try:
+			balance		= total['total'] - obj['used']
+		except:
+			balance		= 0
+
+		
 
 		paginator 		= Paginator(fund_history, self.paginate_by) # show 1 contacts per page
 		page 			= request.GET.get('page', '1')
