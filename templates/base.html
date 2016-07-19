@@ -1,0 +1,68 @@
+{% load staticfiles %}
+{% load lineage %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Badminton Booking Tracking Application</title>	
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">	
+	<link rel="stylesheet" href="{% static 'booking/css/base.css' %}">
+	{% block extra_css_header %}
+	{% endblock %}	
+</head>
+<body>
+
+
+<div class="page-header">
+	<h1>Booking Tracker</h1>
+</div>
+<div class="container-fluid" style="min-height:95%;">
+	<div class="row .text-center">
+		{% block title %}
+		{% endblock %}
+		<hr />
+	</div>
+	<div class="row">
+		  <div class="col-sm-2">
+		   <!-- Great, til you resize. -->
+			<!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+			<div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+			  <ul class="nav nav-pills nav-stacked">
+				<li><a href='/'>Home</a></li>
+				{% if user.is_authenticated %}
+					<li><a href='/logout/'>Logout</a></li>
+				{% else %}
+					<li><a href='/'>Login</a></li>					
+				{% endif %}
+				<li><a class="{% ancestor '/booking/' %}" href="/booking/">View Booking</a></li>
+				<li><a class="{% ancestor '/fund/' %}" href="/fund/">View Funds</a></li>
+				<!--
+				<li><a href='/booking/'>View Booking</a></li>
+				<li><a href='/fund/'>View Funds</a></li>
+				-->
+			  </ul>
+			</div> <!--well bs-sidebar affix-->
+		  </div> <!--col-sm-2-->
+		  <div class="col-sm-10">
+			<div class='container-fluid'>			
+			   {% block content %}
+			   {% endblock %}	
+			</div>
+		  </div>
+	</div> 
+</div>
+<footer>
+		<div class="container-fluid" style='text-align:center;'>
+			<p>&copy; 2016 Go Chee Leong</p>
+		</div>
+		{% block extra_script_footer %}{% endblock %}
+</footer>	
+</body>
+</html>

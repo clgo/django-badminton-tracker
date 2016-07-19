@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block title %}
+<h1>Booking Page</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="table-responsive">		
+	<table class="table table-hover table-bordered">
+		<thead class="thead-default">
+			<tr>
+				<td>Booking Date</td>
+				<td>Booking Rate/Hour</td>
+				<td>Number of Hours</td>
+				<td>Court Number</td>
+				<td>Location</td>
+				<td>Valid Booking</td>
+			</tr>
+		</thead>
+		{% for item in obj_list %}
+		<tr>
+			<td>{{ item.date }}</td>
+			<td>${{ item.rate }}</td>
+			<td>{{ item.hour }}</td>
+			<td>{{ item.court }}</td>
+			<td>{{ item.location }}</td>
+			<td>{{ item.valid }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<BR /><BR />
+	{{ obj_list.as_table }}
+	<div class="pagination">
+		<span class="step-links">
+			{% if obj_list.has_previous %}
+				<a href="?page={{ obj_list.previous_page_number }}">previous</a>
+			{% endif %}
+		<span class="current">
+			Page {{ obj_list.number }} of {{ obj_list.paginator.num_pages }}.
+		</span>
+		{% if obj_list.has_next %}
+			<a href="?page={{ obj_list.next_page_number }}">next</a>
+		{% endif %}
+		</span>
+	</div>
+</div>
+
+{% endblock %}

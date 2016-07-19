@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Badminton Booking Tracking Application</title> 
+  <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Booking Tracker</h1>
+</div>
+<div class="container-fluid" style="min-height:95%;">
+  {% if obj_list.error_message %}
+  <p class="form-signin">{{ obj_list.error_message }}</p>
+  {% endif %}
+  <div id="post_form_msg" style="display: none;"></div>
+  <br />
+  <div class="wrapper">
+      <form role="login_form" class="form-signin" action="" method="POST">{% csrf_token %}
+        {{ form.as_p }}        
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>     
+  </div>
+</div>
+<footer>
+    <div class="container-fluid" style='text-align:center;'>
+      <p>&copy; 2016 Go Chee Leong</p>
+    </div>
+    {% block extra_script_footer %}{% endblock %}
+</footer> 
+</body>
+</html>

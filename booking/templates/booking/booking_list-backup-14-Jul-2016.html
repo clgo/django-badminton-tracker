@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Badminton Booking Tracking Application</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="{% static 'booking/css/booking.css' %}">
+</head>
+<body>
+<div class="page-header">
+	<h1>Booking History</h1>
+</div>
+<div class="content container">
+	<div class="table-responsive">		
+		<table class="table table-hover table-bordered">
+			<thead class="thead-default">
+				<tr>
+					<td>Booking Date</td>
+					<td>Booking Rate/Hour</td>
+					<td>Number of Hours</td>
+					<td>Court Number</td>
+					<td>Location</td>
+					<td>Valid Booking</td>
+				</tr>
+			</thead>
+			
+			{% for item in obj_list %}
+			<tr>
+				<td>{{ item.date }}</td>
+				<td>${{ item.rate }}</td>
+				<td>{{ item.hour }}</td>
+				<td>{{ item.court }}</td>
+				<td>{{ item.location }}</td>
+				<td>{{ item.valid }}</td>
+			</tr>
+			{% endfor %}
+		</table class=".table">
+		<BR /><BR />
+		{{ obj_list.as_table }}
+		<div class="pagination">
+			<span class="step-links">
+				{% if obj_list.has_previous %}
+					<a href="?page={{ obj_list.previous_page_number }}">previous</a>
+				{% endif %}
+			<span class="current">
+				Page {{ obj_list.number }} of {{ obj_list.paginator.num_pages }}.
+			</span>
+			{% if obj_list.has_next %}
+				<a href="?page={{ obj_list.next_page_number }}">next</a>
+			{% endif %}
+			</span>
+		</div>
+</div>
+</body>
+</html>

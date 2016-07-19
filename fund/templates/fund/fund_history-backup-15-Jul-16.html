@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Badminton Booking Tracking Application</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+</head>
+<body>
+<h1>Fund Contribution History</h1>
+<table>
+<tr>
+	<td>Members</td>
+	<td>Contribution Date</td>
+	<td>Amount</td>	
+</tr>
+{% for item in obj_list %}
+<tr>
+	<td>{{ item.contrib_user.last_name }} {{ item.contrib_user.first_name }}</td>
+	<td>{{ item.contrib_date|date:"M d, Y" }}</td>
+	<td>${{ item.contrib_amount }}</td>	
+</tr>
+{% endfor %}
+</table>
+<hr>
+<p>Total Funds Collected: ${{ total.total }}</p>
+<p>Total Funds Used: ${{ used.used }}</p>
+<p>Total Funds Left: ${{ balance }}</p>
+<hr>
+<BR /><BR />
+{{ obj_list.as_table }}
+<div class="pagination">
+	<span class="step-links">
+		{% if obj_list.has_previous %}
+			<a href="?page={{ obj_list.previous_page_number }}">previous</a>
+		{% endif %}
+		<span class="current">
+			Page {{ obj_list.number }} of {{ obj_list.paginator.num_pages }}.
+		</span>
+		{% if obj_list.has_next %}
+			<a href="?page={{ obj_list.next_page_number }}">next</a>
+		{% endif %}
+	</span>
+</div>
+</body>
+</html>
