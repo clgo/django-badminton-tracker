@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{% load lineage %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
 	<!-- Latest compiled JavaScript -->
 	<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
 	<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">	
-	<link rel="stylesheet" href="{% static 'booking/css/base.css' %}">
+	<link rel="stylesheet" href="{% static 'booking/css/booking.css' %}">
 	{% block extra_css_header %}
 	{% endblock %}	
 </head>
@@ -41,12 +40,10 @@
 				{% else %}
 					<li><a href='/'>Login</a></li>					
 				{% endif %}
-				<li><a class="{% ancestor '/booking/' %}" href="/booking/">View Booking</a></li>
-				<li><a class="{% ancestor '/fund/' %}" href="/fund/">View Funds</a></li>
-				<!--
+
 				<li><a href='/booking/'>View Booking</a></li>
 				<li><a href='/fund/'>View Funds</a></li>
-				-->
+				
 			  </ul>
 			</div> <!--well bs-sidebar affix-->
 		  </div> <!--col-sm-2-->

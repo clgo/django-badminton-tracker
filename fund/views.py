@@ -12,7 +12,7 @@ from booking.models import Booking
 
 class FundHistoryView(LoginRequiredMixin, ListView):
 	model 				= Fund
-	piginate_by 		= 10
+	paginate_by 		= 10
 	template_name 		= 'fund/fund_history.html'
 	redirect_field_name = '/'
 
@@ -21,10 +21,11 @@ class FundHistoryView(LoginRequiredMixin, ListView):
 		total		 	= self.model.objects.all().aggregate(total=Sum('contrib_amount'))
 		obj 		 	= Booking.objects.filter(valid=True).aggregate(used=Sum(F('rate') * F('hour')))
 		balance			= total['total'] - obj['used']
+
 		paginator 		= Paginator(fund_history, self.paginate_by) # show 1 contacts per page
+		page 			= request.GET.get('page', '1')
 
-		page 			= request.GET.get('page')
-
+		print('total fund used = ',obj['used'])
 		try:
 			funds = paginator.page(page)
 		except PageNotAnInteger:
@@ -34,4 +35,4 @@ class FundHistoryView(LoginRequiredMixin, ListView):
 			# If page is out of rage (e.g. 99999), deliver last page of results
 			funds = paginator.page(paginator.num_pages)
 		
-		return render(request, self.template_name, {'obj_list': fund_history, 'total': total, 'funds': funds, 'balance': balance})
+		return render(request, self.template_name, {'obj_list': fund_history, 'total': total, 'used': obj, 'balance': balance})

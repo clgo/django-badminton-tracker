@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'booking',
     'fund',
     'login',
-    'lineage',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -141,5 +140,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 LOGIN_URL = '/'
-print("STATIC ROOT = ", STATIC_ROOT)
-print("STATIC URL = ",STATIC_URL)
