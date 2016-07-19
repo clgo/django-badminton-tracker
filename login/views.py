@@ -13,6 +13,11 @@ class LoginView(View):
 	# class based view default get request function, display a blank form
 	def get(self, request):
 		form = self.form_class(None) # clean form without data
+
+		# if user already login
+		if request.user.is_authenticated():
+			return HttpResponseRedirect('/booking')
+
 		return render(request, self.template_name, {'form': form})
 
 	# when user hits submit, a post request will automatically calls post method
